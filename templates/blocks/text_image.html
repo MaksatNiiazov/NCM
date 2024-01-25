@@ -1,0 +1,76 @@
+<div class="wrapper">
+<!-- block.text_image_block.html -->
+    <div class="text-image-block {{ block.text_image_block.image_direction }}" style="background-color: {{ block.text_image_block.background_color }};">
+            <img src="{{ block.text_image_block.image.url }}" alt="{{ block.text_image_block.alt }}" class="image" style="width: {{ block.text_image_block.image_width }}px; height: {{ block.text_image_block.image_height }}px;">
+
+        <div class="text-content" style="color: {{ block.text_image_block.text_color }};">
+            {% if block.text_image_block.title %}
+                <h2 style="color: {{ block.text_image_block.title_color }};">{{ block.text_image_block.title }}</h2>
+            {% endif %}
+            <p>{{ block.text_image_block.text }}</p>
+        </div>
+
+    </div>
+
+</div>
+
+<style>
+.text-image-block {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    background-color: {{ block.text_image_block.background_color }};
+    padding: {{ block.text_image_block.padding }}px;
+    margin: {{ block.text_image_block.margin }}px;
+    border-radius: {{ block.text_image_block.border_radius }};
+    text-align: center;
+}
+
+{% if block.slider.direction == 'L' %}
+    .text-image-block {
+        flex-direction: row;
+    }
+{% else %}
+
+.text-image-block {
+    flex-direction: row-reverse;
+}
+  {% endif %}
+.image {
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.text-content {
+    max-width: 600px; /* или любая максимальная ширина для текста */
+    margin: 20px;
+}
+
+.text-content h2 {
+    font-size: {{ block.text_image_block.title_size }};
+    margin-bottom: 0.5em;
+}
+
+.text-content p {
+    font-size: {{ block.text_image_block.content_size }};
+    color: {{ block.text_image_block.content_color }};
+    line-height: 1.6;
+}
+
+@media (max-width: 768px) {
+    .text-image-block {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .image {
+        max-width: 100%;
+        height: auto;
+    }
+
+    .text-content {
+        max-width: 100%;
+    }
+}
+
+</style>

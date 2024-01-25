@@ -1,0 +1,131 @@
+/* Стили по умолчанию для .wrapper класса */
+.wrapper {
+    max-width: 1170px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 16px;
+    padding-right: 16px;
+}
+
+/* Медиа-запросы для адаптивности */
+
+/* Мобильные устройства (экраны меньше 768px) */
+@media only screen and (max-width: 767px) {
+    .wrapper {
+        max-width: 95%; /* Уменьшенная максимальная ширина для мобильных устройств */
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+}
+
+/* Планшеты (экраны от 768px до 991px) */
+@media only screen and (min-width: 768px) and (max-width: 991px) {
+    .wrapper {
+        max-width: 720px; /* Промежуточная максимальная ширина для планшетов */
+        padding-left: 12px;
+        padding-right: 12px;
+    }
+}
+
+/* Небольшие настольные компьютеры (экраны от 992px до 1199px) */
+@media only screen and (min-width: 992px) and (max-width: 1199px) {
+    .wrapper {
+        max-width: 960px; /* Большая максимальная ширина для небольших настольных экранов */
+    }
+}
+
+/* Большие настольные компьютеры и большие экраны (больше 1200px) */
+@media only screen and (min-width: 1200px) {
+    .wrapper {
+        max-width: 1170px; /* Ст
+андартная максимальная ширина для больших настольных экранов */
+}
+}
+
+*, *::before, *::after {
+    box-sizing: border-box; /* Убедитесь, что все элементы используют border-box */
+}
+
+html, body {
+    margin: 0;
+    padding: 0;
+    width: 100%; /* Предотвращаем прокрутку по горизонтали */
+    overflow-x: hidden; /* Скрыть горизонтальный скролл */
+    font-family: "Segoe UI", system-ui, sans-serif;
+}
+
+/* styles.css */
+header{
+
+}
+.site-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem 2rem;
+    background-size: cover;
+    background-position: center;
+    max-width: 100%; /* Ограничение ширины хедера до ширины вьюпорта */
+    max-height: 150px; /* Ограничение высоты хедера, например, до 150 пикселей */
+    overflow: hidden; /* Скрытие переполнения содержимого */
+}
+
+
+/* styles.css */
+.site-footer {
+    background-color: #333;
+    color: white;
+    padding-top: 40px;
+    padding-bottom: 20px;
+}
+
+.container {
+    width: 80%;
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+}
+
+.footer-content {
+    display: flex;
+    justify-content: space-between;
+}
+
+.footer-section h4 {
+    margin-bottom: 20px;
+}
+
+.footer-section p,
+.footer-section ul {
+    list-style: none;
+    padding: 0;
+}
+
+.footer-bottom {
+    text-align: center;
+    margin-top: 20px;
+    border-top: 1px solid #444;
+    padding-top: 20px;
+}
+
+@media (max-width: 768px) {
+    .container {
+        width: 95%;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .footer-content {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .footer-section {
+        margin-bottom: 20px;
+    }
+
+    .footer-bottom {
+        margin-top: 40px;
+    }
+}

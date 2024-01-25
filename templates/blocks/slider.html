@@ -1,0 +1,117 @@
+<!-- Первый слайдер -->
+<section class="section-slider-{{ block.id }}" style="display: flex;">
+    <div class="wrapper">
+        <!-- Заголовок для первого слайдера -->
+        <h2 class="slider-title-{{ block.id }}" style="color: {{ block.slider.title_color }};">
+            {{ block.slider.title }}
+        </h2>
+
+        <!-- Swiper для первого слайдера -->
+        <div class="swiper-container swiper-container-{{ block.id }}">
+            <div class="swiper-wrapper">
+                {% for slide in block.slider.slides.all %}
+                    <!-- Slide -->
+                    <div class="swiper-slide" style="width: {{ slide.width }}px; height: {{ slide.height }}px">
+                        <img src="{{ slide.image.url }}" alt="{{ slide.image.alt }}">
+                    </div>
+                    <!-- Slide -->
+                {% endfor %}
+            </div>
+            <!-- Пагинация (точки навигации) для первого слайдера -->
+            <div class="swiper-pagination swiper-pagination-{{ block.id }}"></div>
+            <!-- Навигационные кнопки для первого слайдера -->
+            <div class="swiper-button-prev swiper-button-prev-{{ block.id }}" style="color: {{ block.slider.navigation_color }};"></div>
+            <div class="swiper-button-next swiper-button-next-{{ block.id }}" style="color: {{ block.slider.navigation_color }};"></div>
+        </div>
+    </div>
+</section>
+
+<style>
+    /* Общие стили для слайдеров */
+    .section-slider-{{ block.id }}{
+        position: relative;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        background-color: {{ block.slider.background_color }};
+        padding: {{ block.slider.padding }}px;
+        margin: {{ block.slider.margin }}px;
+        border-radius: {{ block.slider.border_radius }}px;
+        text-align: center;
+    }
+
+    /* Заголовки слайдеров */
+    .slider-title-{{ block.id }}{
+        text-align: center;
+        font-size: {{ block.slider.title_size }}px;
+        /* Цвет заголовка задается через inline-стили */
+    }
+
+    /* Swiper контейнеры */
+    .swiper-container-{{ block.id }}{
+        width: 100%;
+        height: auto;
+        overflow: hidden;
+    }
+
+    /* Стили для слайдов */
+    .swiper-slide {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        font-size: 18px;
+        background: #fff;
+        overflow: hidden;
+    }
+
+    /* Стили для изображений в слайде */
+    .swiper-slide img {
+        max-width: 100%;
+        max-height: 100%;
+        object-fit: contain;
+    }
+
+    /* Стили для точек пагинации */
+    .swiper-pagination-bullet {
+    }
+
+    /* Стили для активной точки пагинации */
+    .swiper-pagination-bullet-active {
+        background-color: {{ block.slider.navigation_color }} !important;
+    }
+</style>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // Инициализация первого слайдера
+        var slider1 = new Swiper('.swiper-container-{{ block.id }}', {
+            loop: true,
+            pagination: {
+                el: '.swiper-pagination-{{ block.id }}',
+                clickable: true,
+            },
+            navigation: {
+                nextEl: '.swiper-button-next-{{ block.id }}',
+                prevEl: '.swiper-button-prev-{{ block.id }}',
+            },
+breakpoints: {
+                640: {
+                    slidesPerView: {{ block.slider.slides_per_view_mobile }},
+                    spaceBetween: 20,
+                },
+                768: {
+                    slidesPerView: {{ block.slider.slides_per_view_tablet }},
+                    spaceBetween: 30,
+                },
+                1024: {
+                    slidesPerView: {{ block.slider.slides_per_view_desktop }},
+                    spaceBetween: 40,
+                },
+            },
+        });
+
+
+    });
+</script>

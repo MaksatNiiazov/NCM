@@ -1,0 +1,31 @@
+<!-- block.text_block.html -->
+<div class="text-block{{ block.id }}" style="background-color: {{ block.text_block.background_color }}; padding: {{ block.text_block.padding }}px;">
+<div class="wrapper">
+    {% if block.text_block.title %}
+        <h2 style="color: {{ block.text_block.title_color }};">{{ block.text_block.title }}</h2>
+    {% endif %}
+    <p style="color: {{ block.text_block.text_color }};">{{ block.text_block.text | safe }}</p>
+</div>
+</div>
+<style>
+
+.text-block{{ block.id }} {
+    text-align: center;
+    max-width: 100%;
+    background-color: {{ block.text_block.background_color }};
+    padding: {{ block.text_block.padding }}px;
+    margin: 0 auto;
+    border-radius: {{ block.text_block.border_radius }};
+}
+.text-block h2 {
+    margin-bottom: 0.5em;
+    font-size: 1.5em; /* Размер шрифта заголовка */
+}
+
+.text-block p {
+    font-size: 1em; /* Размер шрифта основного текста */
+    line-height: 1.6;
+    margin-bottom: 0; /* Если необходимо убрать отступ снизу */
+}
+
+</style>

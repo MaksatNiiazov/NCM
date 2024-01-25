@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% include 'header.html' with header=page.header %}
+
+    {% for block in blocks %}
+        {% include "blocks/"|add:block.block_type|add:".html" with block=block %}
+    {% endfor %}
+{% include 'footer.html' with footer=page.footer %}
+
+{% endblock %}

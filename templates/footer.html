@@ -1,0 +1,119 @@
+<footer class="site-footer" style="background-color: {{ footer.background_color }}; color: {{ footer.text_color }}">
+<div class="wrapper">
+    <div class="container">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4></h4>
+                <p>{{ footer.about_us }}</p>
+            </div>
+            <div class="footer-section">
+                <h4>Contact Info</h4>
+                <ul>
+                    <li>Телефон: {{ footer.phone }}</li>
+                    <li>Email: <a href="mailto:{{ footer.email }}" style="color: {{ footer.link_color }}">{{ footer.email }}</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Follow Us</h4>
+                <p>
+                    {% for link in footer.sociallinks_set.all %}
+                        <a href="{{ link.social_links }}" style="color: {{ link.link_color }}">
+                            {% if link.icon %}
+                                <img src="{{ link.icon.url }}" alt="{{ link.social_links }}" class="footer-icon">
+                            {% endif %}
+                            {% if link.name %}
+                                {{ link.name }}
+                            {% endif %}
+                        </a>
+                    {% endfor %}
+                </p>
+            </div>
+        </div>
+
+    </div>
+</div>
+</footer>
+<style>
+/* Футер */
+.site-footer {
+    background-color: {{ footer.background_color }};
+    color: {{ footer.text_color }};
+    padding: 2rem 0;
+}
+
+.site-footer .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-wrap: wrap;
+}
+
+.site-footer .footer-content {
+    display: flex;
+    gap: 2rem;
+    flex: 1;
+    max-width: 100%;
+    max-height: 100%;
+}
+
+.site-footer .footer-section {
+    flex: 1;
+}
+
+.site-footer .footer-section h4 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    color: {{ footer.text_color }};
+}
+
+.site-footer .footer-section p {
+    font-size: 1.1rem;
+    line-height: 1.5;
+    color: {{ footer.text_color }};
+}
+
+.site-footer .footer-section ul {
+    list-style: none;
+    padding: 0;
+}
+
+.site-footer .footer-section li {
+    margin-bottom: 0.5rem;
+    color: {{ footer.text_color }};
+}
+
+.site-footer .footer-section a {
+    text-decoration: none;
+    color: {{ footer.link_color }};
+    transition: color 0.3s ease-in-out;
+}
+
+.site-footer .footer-section a:hover {
+    color: #007bff;
+}
+
+.site-footer .footer-icon {
+    width: 32px; /* Размер иконок социальных сетей */
+    height: 32px;
+    margin-right: 10px; /* Расстояние между иконками */
+    filter: grayscale(0%);
+    transition: filter 0.3s ease-in-out;
+}
+
+.site-footer .footer-icon:hover {
+    filter: grayscale(100%);
+}
+
+.site-footer .footer-bottom {
+    text-align: center;
+    padding: 1rem 0;
+    background-color: #f8f9fa; /* Фон нижней части футера (по умолчанию светло-серый) */
+    color: {{ footer.text_color }};
+}
+
+.site-footer .footer-bottom p {
+    margin: 0;
+    font-size: 1rem;
+}
+
+</style>

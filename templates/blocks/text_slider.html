@@ -1,0 +1,154 @@
+<!-- Слайдер начало -->
+<section class="section-slider-{{ block.id }}" style="display: flex; max-width: 100%">
+    <div class="wrapper">
+        <!-- Обертка для слайдера и текста с display: flex; -->
+        <div class="slider-and-text-container" style="display: flex; max-width: 100%;">
+
+            <!-- Блок слайдера -->
+            <div class="slider{{ block.id }}" style="flex: 1;">
+                <!-- Swiper -->
+                <div class="swiper-container swiper-container-{{ block.id }}">
+                    <div class="swiper-wrapper">
+                        {% for slide in block.slider.slides.all %}
+                            <!-- Slide -->
+                            <div style="text-align: center" class="swiper-slide">
+                                <img style="width: {{ slide.width }}px; height: {{ slide.height }}px;"
+                                     src="{{ slide.image.url }}" alt="{{ slide.image.alt }}">
+                            </div>
+                            <!-- Slide -->
+                        {% endfor %}
+                    </div>
+                    <!-- Пагинация (точки навигации) -->
+                    <div class="swiper-pagination swiper-pagination-{{ block.id }}"></div>
+                </div>
+            </div>
+
+            <!-- Блок текста -->
+            <div class="text" style="flex: 1;">
+                <h2 class="slider-title-{{ block.id }}" style="color: {{ block.slider.title_color }};">
+                    {{ block.slider.title }}
+                </h2>
+                <p>{{ block.slider.text }}</p>
+            </div>
+
+        </div>
+    </div>
+</section>
+<style>
+    /* Общие стили */
+    .section-slider-{{ block.id }} {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    max-width: 100%;
+    background-color: {{ block.slider.background_color }};
+    padding: {{ block.slider.padding }}px;
+    margin: {{ block.slider.margin }}px;
+    border-radius: {{ block.slider.border_radius }};
+    text-align: center;
+}
+    .swiper-container-{{ block.id }} {
+        width: 100%;
+        height: auto;
+        overflow: hidden;
+    }
+
+    .swiper-slide-{{ block.id }} {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        background: #fff;
+    }
+
+    .swiper-slide-{{ block.id }} img {
+        object-fit: contain;
+        max-width: 100%;
+        max-height: 100%;
+    }
+
+    /* Стили для текстового блока и контейнера */
+    .slider-and-text-container {
+        display: flex;
+        flex-wrap: wrap;
+        {% if block.slider.image_direction == 'L' %}
+            flex-direction: row-reverse;
+
+        {% else %}
+            flex-direction: row;
+
+        {% endif %}
+
+        justify-content: space-around;
+        max-width: 100%;
+    }
+
+    .slider{{ block.id }},
+    .text {
+        display: block; /* Измените display на block */
+        margin: auto;
+        text-align: center;
+        align-items: center;
+        flex: 1;
+        max-width: 50%;
+    }
+
+    /* Стили для различных размеров экранов */
+    @media only screen and (max-width: 767px) {
+        .slider-and-text-container {
+            flex-direction: column; /* Изменить на колонку на маленьких экранах */
+
+        }
+
+        .slider{{ block.id }},
+        .text {
+            max-width: 100%;
+        }
+    }
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    let swiperContainer = `.swiper-container-{{ block.id }}`;
+
+    new Swiper(swiperContainer, {
+        // Основные параметры
+        spaceBetween: 30,
+        loop: true,
+        centeredSlides: true,
+        speed: 800,
+
+        // Автопроигрывание
+        autoplay: {
+            delay: 5000,
+            disableOnInteraction: false,
+        },
+
+        // Эффекты перехода между слайдами
+        effect: 'fade', // 'slide', 'fade', 'cube', 'coverflow' или 'flip'
+        fadeEffect: {
+            crossFade: true
+        },
+
+        // Отзывчивость
+        breakpoints: {
+            320: {
+                slidesPerView: 1,
+                spaceBetween: 10,
+            },
+            768: {
+                slidesPerView: 1,
+                spaceBetween: 20,
+            },
+            1024: {
+                slidesPerView: 1,
+                spaceBetween: 30,
+            },
+        },
+
+        // Дополнительные параметры
+        watchSlidesProgress: true,
+        watchSlidesVisibility: true,
+    });
+});
+</script>

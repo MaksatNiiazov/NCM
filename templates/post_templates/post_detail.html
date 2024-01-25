@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% include 'header.html' with header=header %}
+
+<div class="post-detail">
+    <article>
+        <h2>{{ post.title }}</h2>
+        <p class="post-date">Published on {{ post.date }}</p>
+        <p>{{ post.text }}</p>
+        <p class="post-categories">Categories: {{ post.categories.all|join:", " }}</p>
+        <p class="post-tags">Tags: {{ post.tags.all|join:", " }}</p>
+        <!-- Add any other post details you want to display here -->
+    </article>
+</div>
+
+<style>
+    .post-detail {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 20px;
+    }
+
+    .post-detail h2 {
+        font-size: 24px;
+        margin-bottom: 10px;
+    }
+
+    .post-date {
+        font-style: italic;
+        font-size: 14px;
+        color: #888;
+    }
+
+    .post-detail p {
+        font-size: 16px;
+        line-height: 1.5;
+        margin-bottom: 20px;
+    }
+
+    .post-categories, .post-tags {
+        font-weight: bold;
+    }
+</style>
+{% include 'footer.html' with footer=footer %}
+
+{% endblock %}

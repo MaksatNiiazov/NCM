@@ -1,0 +1,15 @@
+
+<div class="wrapper">
+    <div class="custom-html-block">
+        {{ block.custom_block.display_html|safe }}
+    </div>
+</div>
+<style>
+    .custom-html-block {
+    background-color: {{ block.custom_block.background_color }};
+    padding: {{ block.custom_block.padding }}px;
+    margin: {{ block.custom_block.margin }}px;
+    border-radius: {{ block.custom_block.border_radius }};
+    text-align: center;
+}
+</style>

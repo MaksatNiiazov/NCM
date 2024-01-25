@@ -1,0 +1,157 @@
+{% load i18n %}
+
+
+<header class="site-header">
+
+    <div class="header-content">
+        <div class="header-logo">
+
+            {% if header.logo %}
+                <a href="{% url 'home_page' %}">
+                    <img src="{{ header.logo.url }}" alt="{{ header.logo_alt_text }}" >
+                </a>
+            {% endif %}
+        </div>
+        <nav class="header-nav">
+            <ul class="header-menu">
+                {% for menu_item in header.menu_items.all %}
+                    <li class="header-menu-item">
+                        <a href="{% url 'page_view' menu_item.slug %}">{{ menu_item.title }}</a>
+                    </li>
+                {% endfor %}
+                    <li class="header-menu-item">
+                        <a href="{% url 'post_list' %}">List</a>
+                    </li>
+            </ul>
+        </nav>
+        {% if header.call_to_action_text and header.call_to_action_link %}
+            <a href="{{ header.call_to_action_link }}" class="header-cta">
+                {{ header.call_to_action_text }}
+            </a>
+        {% endif %}
+    <div>
+    <form action="{% url 'set_language' %}" method="post" class="language-select-form" id="language-form">
+        {% csrf_token %}
+        <input name="next" type="hidden" value="{{ redirect_to }}">
+        <label>
+            <select name="language" id="language-select">
+                {% get_current_language as LANGUAGE_CODE %}
+                {% get_available_languages as LANGUAGES %}
+                {% get_language_info_list for LANGUAGES as languages %}
+                {% for language in languages %}
+                    <option value="{{ language.code }}"{% if language.code == LANGUAGE_CODE %} selected{% endif %}>
+                        {{ language.name_local }}
+                    </option>
+                {% endfor %}
+            </select>
+        </label>
+    </form>
+</div>
+    </div>
+
+</header>
+
+<style>
+    /* Стили для хедера */
+    .site-header {
+        background-color: {{ header.background_color }};
+        {% if header.background_image %}
+            background-image: url('{{ header.background_image.url }}');
+        {% endif %}
+        background-size: cover;
+        background-position: center;
+        height: {{ header.height }}px;
+        padding: 1rem;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .header-content {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .header-logo a img {
+        max-width: 100%;
+        max-height: {{ header.logo_height }}px;
+    }
+
+    .header-nav {
+        /* Навигационные стили */
+    }
+
+    .header-menu {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        display: flex;
+        gap: 1rem;
+    }
+
+    .header-menu-item a {
+        text-decoration: none;
+        color: #333;
+        font-weight: 500;
+        transition: color 0.3s ease-in-out;
+    }
+
+    .header-menu-item a:hover {
+        color: #3d3d3d;
+    }
+
+    .header-cta {
+        padding: 0.5rem 1rem;
+        background-color: {{ header.call_to_action_color }};
+        color: #000000;
+        text-decoration: none;
+        border-radius: 0.25rem;
+        transition: background-color 0.3s ease-in-out;
+    }
+
+    .header-cta:hover {
+        background-color: #0056b3;
+    }
+
+    .language-select-form {
+        margin-top: 1rem;
+    }
+
+    .language-select-form select {
+        padding: 0.5rem;
+        border-radius: 0.25rem;
+        border: 1px solid #ccc;
+        background-color: #f8f9fa;
+        font-size: 14px;
+    }
+
+    @media (max-width: 768px) {
+        .header-content {
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .header-menu {
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .header-cta {
+            margin-top: 1rem;
+        }
+    }
+</style>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    var languageSelect = document.getElementById("language-select");
+
+    languageSelect.addEventListener("change", function() {
+        var selectedLanguage = languageSelect.value;
+        document.getElementById("language-form").submit();
+    });
+});
+</script>
