@@ -1,37 +1,22 @@
-<!-- post_list.html -->
-
 {% extends 'base.html' %}
 
 {% block content %}
     {% include 'header.html' with header=header %}
-    <div class="container">
+    <style>
+    .page-title{
+        text-align: center;
+    }
+    </style>
+    <div class="wrapper">
         <h1 class="page-title">List of Posts</h1>
-
-        <!-- Фильтры по категориям и тегам -->
-        <div class="filters">
-            <label for="category-filter">Filter by Category:</label>
-            <select id="category-filter" class="form-select">
-                <option value="">All Categories</option>
-                {% for category in categories %}
-                    <option value="{{ category.id }}">{{ category.name }}</option>
-                {% endfor %}
-            </select>
-            <label for="tag-filter">Filter by Tag:</label>
-            <select id="tag-filter" class="form-select">
-                <option value="">All Tags</option>
-                {% for tag in tags %}
-                    <option value="{{ tag.id }}">{{ tag.name }}</option>
-                {% endfor %}
-            </select>
-        </div>
-
-        <!-- Список постов -->
         <ul class="post-list">
             {% for post in object_list %}
-                <li class="post-item" data-category="{{ post.categories.first.id }}" data-tags="{{ post.tags.all|join:',' }}">
-                    <a href="{% url 'post_view' post.slug %}" class="post-link">
+                <li class="post-item" data-category="{{ post.category.id }}" data-tags="{{ post.tags.all|join:',' }}">
+                    <a href="{% url 'post_detail' post.slug %}" class="post-link">
                         <div class="post-thumbnail">
-                            <!-- Вставьте здесь код для отображения изображения, если есть -->
+                            {% if post.thumbnail %}
+                                <img src="{{ post.thumbnail.url }}" alt="{{ post.title }}">
+                            {% endif %}
                         </div>
                         <div class="post-details">
                             <h2 class="post-title">{{ post.title }}</h2>
@@ -43,122 +28,6 @@
                 <li class="empty-message">No posts available.</li>
             {% endfor %}
         </ul>
-    </div>
-
+        </div>
     {% include 'footer.html' with footer=footer %}
 {% endblock %}
-
-<!-- Стили для фильтров и постов -->
-<style>
-    /* Общие стили для шаблона */
-    .container {
-        padding: 20px;
-    }
-
-    .page-title {
-        font-size: 24px;
-        margin-bottom: 20px;
-    }
-
-    /* Стили для фильтров */
-    .filters {
-        text-align: center;
-        margin-bottom: 20px;
-    }
-
-    .filters label {
-        font-weight: bold;
-        margin-right: 10px;
-    }
-
-    .form-select {
-        width: 200px;
-        padding: 5px;
-        font-size: 16px;
-    }
-
-    /* Стили для постов */
-    .post-list {
-        list-style: none;
-        padding: 0;
-    }
-
-    .post-item {
-        margin-bottom: 20px;
-        background-color: #f9f9f9;
-        padding: 20px;
-        border-radius: 10px;
-        box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.1);
-        transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
-    }
-
-    .post-item:hover {
-        transform: scale(1.02);
-        box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.2);
-    }
-
-    .post-thumbnail {
-        width: 150px;
-        height: 150px;
-        background-color: #ddd;
-        text-align: center;
-        padding: 10px;
-        border-radius: 50%;
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        margin-right: 20px;
-    }
-
-    .post-thumbnail img {
-        max-width: 100%;
-        max-height: 100%;
-    }
-
-    .post-details {
-        flex: 1;
-    }
-
-    .post-title {
-        font-size: 24px;
-        margin: 0;
-    }
-
-    .post-date {
-        font-size: 14px;
-        color: #777;
-    }
-
-    .empty-message {
-        font-size: 16px;
-        text-align: center;
-        color: #777;
-        margin-top: 20px;
-    }
-</style>
-
-<!-- JavaScript для фильтрации -->
-<script>
-    $(document).ready(function () {
-        $('#category-filter, #tag-filter').change(function () {
-            var selectedCategory = $('#category-filter').val();
-            var selectedTag = $('#tag-filter').val();
-            $('.post-item').hide();
-
-            if (selectedCategory || selectedTag) {
-                $('.post-item').each(function () {
-                    var item = $(this);
-                    var itemCategory = item.data('category');
-                    var itemTags = item.data('tags').split(',');
-
-                    if ((selectedCategory === '' || itemCategory === parseInt(selectedCategory)) &&
-                        (selectedTag === '' || itemTags.includes(selectedTag))) {
-                        item.show();
-                    }
-                });
-            } else {
-                $('.post-item').show();
-            }
-        });
-    });
-</script>

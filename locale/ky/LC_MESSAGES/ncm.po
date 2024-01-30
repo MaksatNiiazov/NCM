@@ -1,0 +1,3 @@
+msgid "List"
+msgstr "Сп1сок"
+
