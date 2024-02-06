@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-@+g2s$60=xwor^^sf8(99+y#k_nu621@phu@59b%$=$ntkun&z
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -62,7 +62,7 @@ ROOT_URLCONF = 'ncm_sourse.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': ['templates'],
+        'DIRS': [BASE_DIR / 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -132,7 +132,7 @@ LOCALE_PATHS = (
 
 STATIC_URL = 'static/'
 STATIC_DIR = BASE_DIR / 'static'
-STATICFILES_DIRS = [BASE_DIR / 'static']
+STATIC_ROOT = STATIC_DIR
 
 
 MEDIA_DIR = BASE_DIR / 'media'

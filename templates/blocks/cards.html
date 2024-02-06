@@ -9,8 +9,8 @@
         {% endif %}
         <div class="cards-container">
             {% for card in block.cards_block.cards.all %}
-                {% if card.post %}
-                    <a href="{% url 'post_detail'  card.post.slug  %}">
+                {% if card.page %}
+                    <a href="{% url 'page_view'  card.page.slug  %}">
                         <div class="card" style="background-color: {{ card.background_color }}">
                             <img src="{{ card.image.url }}" alt="{{ card.alt }}" style="width: {{ card.width }}px; height: {{ card.height }}px;">
                             <div class="card-text">

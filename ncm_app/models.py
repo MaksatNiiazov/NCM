@@ -2,8 +2,6 @@ from django.db import models
 from django.utils.safestring import mark_safe
 from django.utils.text import slugify
 
-from posts.models import Post
-
 
 class Header(models.Model):
     is_default = models.BooleanField(default=False)
@@ -35,7 +33,6 @@ class Footer(models.Model):
     link_color = models.CharField(max_length=7, default='#007bff')
     order = models.PositiveIntegerField(default=0)
 
-
     class Meta:
         ordering = ['order']
 
@@ -50,6 +47,7 @@ class SocialLinks(models.Model):
 
     class Meta:
         ordering = ['order']
+
 
 class Page(models.Model):
     title = models.CharField(max_length=255)
@@ -74,10 +72,11 @@ class Page(models.Model):
         slug = slugify(self.title)
         unique_slug = slug
         num = 1
-        while Post.objects.filter(slug=unique_slug).exists():
+        while Page.objects.filter(slug=unique_slug).exists():
             unique_slug = f'{slug}-{num}'
             num += 1
         return unique_slug
+
 
 class BaseModel(models.Model):
     border_radius = models.PositiveIntegerField(default=5)
@@ -161,7 +160,7 @@ class SliderBlock(BaseModel):
 
 class Slide(models.Model):
     slider_block = models.ForeignKey(SliderBlock, on_delete=models.CASCADE, related_name='slides')
-    post = models.ForeignKey(Post, on_delete=models.CASCADE, blank=True, null=True)
+    page = models.ForeignKey(Page, on_delete=models.CASCADE, blank=True, null=True)
     width = models.PositiveIntegerField(default=300)
     height = models.PositiveIntegerField(default=300)
     image = models.ImageField(upload_to='slides/')
@@ -200,7 +199,7 @@ class CardsBlock(BaseModel):
 
 class Card(models.Model):
     cards_block = models.ForeignKey(CardsBlock, on_delete=models.CASCADE, related_name='cards')
-    post = models.ForeignKey(Post, on_delete=models.CASCADE, blank=True, null=True)
+    page = models.ForeignKey(Page, on_delete=models.CASCADE, blank=True, null=True)
     image = models.ImageField(upload_to='cards/')
     width = models.PositiveIntegerField(default=100)
     height = models.PositiveIntegerField(default=100)

@@ -1,8 +1,8 @@
 from modeltranslation.translator import register, TranslationOptions
 
-from posts.models import Category, Tag
+from posts.models import Category, Tag, Post
 from .models import TextBlock, Slide, SliderBlock, TextWithImageBlock, CardsBlock, Card, Header, \
-    CustomHTMLBlock, TextSliderBlock, Post, BaseDirection, Footer, Page
+    CustomHTMLBlock, TextSliderBlock, BaseDirection, Footer, Page
 
 
 @register(Post)
